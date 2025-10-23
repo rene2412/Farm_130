@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Project Expense Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+  <nav>
+        <ul>
+            <li><a href="#about-problem">The Problem</a></li>
+            <li><a href="#about-solution">The Solution</a></li>
+            <li><a href="#roi">Find Your ROI</a></li>
+            <li><a href="#results">Results</a></li>
+        </ul>
+    </nav>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>For the Valley Farmer</h1>
+            <p>Smart financial planning for your agricultural investments</p>
+            <a href="#roi" class="cta-button">Calculate Your ROI</a>
+        </div>
+    </div>
+    <section id="about-problem">
+        <h2>The Problem</h2>
+        <p>Farmers and agricultural businesses face significant challenges when planning and budgeting for farm projects. Without proper financial forecasting, it's difficult to determine whether investments in equipment, land improvements, or new crops will be profitable.</p>
+        <p>Many farmers struggle with understanding their return on investment (ROI), leading to poor decision-making and potential financial losses. The complexity of calculating expenses, projected yields, and market prices makes financial planning overwhelming for many agricultural operations.</p>
+    </section>
+    <section id="about-solution">
+        <h2>The Solution</h2>
+        <p>Our Agricultural Expense Calculator provides a simple, intuitive tool for farmers to estimate project costs and calculate potential returns on investment. By inputting basic information about acreage, soil type, and costs, farmers can make informed decisions about their agricultural projects.</p>
+        <p>This tool helps agricultural businesses plan more effectively by providing clear financial projections, allowing them to evaluate the viability of different farming ventures before committing significant resources.</p>
+    </section>
+    <section id="roi">
+        <h2>Find Your ROI</h2>
+        <div class="form-container">
+            <form id="roi-form">
+                <div class="form-group">
+                    <label for="acreage">Acreage:</label>
+                    <input type="number" id="acreage" name="acreage" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="soil-type">Soil Type:</label>
+                    <select id="soil-type" name="soil-type" required>
+                        <option value="">Select soil type</option>
+                        <option value="clay">Clay</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="loam">Loam</option>
+                        <option value="silt">Silt</option>
+                        <option value="peaty">Peaty</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="crop-type">Crop Type:</label>
+                    <select id="crop-type" name="crop-type" required>
+                        <option value="">Select crop type</option>
+                        <option value="corn">Corn</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="soybeans">Soybeans</option>
+                        <option value="grapes">Grapes</option>
+                        <option value="vegetables">Vegetables</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="initial-cost">Initial Investment Cost ($):</label>
+                    <input type="number" id="initial-cost" name="initial-cost" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="annual-maintenance">Annual Maintenance Cost ($):</label>
+                    <input type="number" id="annual-maintenance" name="annual-maintenance" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="expected-yield">Expected Yield per Acre (units):</label>
+                    <input type="number" id="expected-yield" name="expected-yield" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="market-price">Market Price per Unit ($):</label>
+                    <input type="number" id="market-price" name="market-price" step="0.01" required>
+                </div>
+
+                <button type="submit" class="calculate-btn">Calculate ROI</button>
+            </form>
+        </div>
+    </section>
+    <section id="results">
+        <h2>Results</h2>
+        <p>Your calculated results will appear here after submitting the form above.</p>
+        <div id="results-display" class="results-container">
+            <div class="result-item">
+                <h3>Total Revenue</h3>
+                <p class="result-value" id="total-revenue">$0.00</p>
+            </div>
+            <div class="result-item">
+                <h3>Total Costs</h3>
+                <p class="result-value" id="total-costs">$0.00</p>
+            </div>
+            <div class="result-item">
+                <h3>Net Profit</h3>
+                <p class="result-value" id="net-profit">$0.00</p>
+            </div>
+            <div class="result-item">
+                <h3>Return on Investment (ROI)</h3>
+                <p class="result-value" id="roi-percentage">0%</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Agricultural Expense Calculator</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
