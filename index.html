@@ -3,119 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Project Expense Calculator</title>
+    <title>Farm Recharge Basin Calculator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
     <link rel="stylesheet" href="styles.css">
 </head>
-  <nav>
+<body>
+    <nav>
         <ul>
             <li><a href="#about-problem">The Problem</a></li>
             <li><a href="#about-solution">The Solution</a></li>
-            <li><a href="#roi">Find Your ROI</a></li>
+            <li><a href="#calculator">Calculator</a></li>
             <li><a href="#results">Results</a></li>
         </ul>
     </nav>
-<body>
+
     <div class="hero">
         <div class="hero-content">
-            <h1>For the Valley Farmer</h1>
-            <p>Smart financial planning for your agricultural investments</p>
-            <a href="#roi" class="cta-button">Calculate Your ROI</a>
+            <h1>For The Valley Farmer</h1>
+            <p>Smart financial planning for groundwater recharge investments</p>
+            <a href="#calculator" class="cta-button">Calculate Your ROI</a>
         </div>
     </div>
+
     <section id="about-problem">
         <h2>The Problem</h2>
-        <p>Farmers and agricultural businesses face significant challenges when planning and budgeting for farm projects. Without proper financial forecasting, it's difficult to determine whether investments in equipment, land improvements, or new crops will be profitable.</p>
-        <p>Many farmers struggle with understanding their return on investment (ROI), leading to poor decision-making and potential financial losses. The complexity of calculating expenses, projected yields, and market prices makes financial planning overwhelming for many agricultural operations.</p>
+        <p>California's Central Valley faces critically low groundwater levels. Farmers need effective solutions to recharge aquifers while maintaining profitable operations.</p>
+        <p>Without proper financial analysis tools, it's difficult to determine whether investing in a water recharge basin will provide adequate returns. Understanding the costs, benefits, and long-term viability of recharge projects is essential for making informed decisions.</p>
     </section>
+
     <section id="about-solution">
         <h2>The Solution</h2>
-        <p>Our Agricultural Expense Calculator provides a simple, intuitive tool for farmers to estimate project costs and calculate potential returns on investment. By inputting basic information about acreage, soil type, and costs, farmers can make informed decisions about their agricultural projects.</p>
-        <p>This tool helps agricultural businesses plan more effectively by providing clear financial projections, allowing them to evaluate the viability of different farming ventures before committing significant resources.</p>
+        <p>Our Water Recharge Basin Calculator provides farmers with a comprehensive tool to evaluate the financial feasibility of installing recharge basins on their property.</p>
+        <p>By combining soil data, geolocation mapping, and economic modeling, this tool helps you understand the costs, recharge potential, and return on investment for your specific property. Make data-driven decisions about groundwater management with confidence.</p>
     </section>
-    <section id="roi">
-        <h2>Find Your ROI</h2>
-        <div class="form-container">
-            <form id="roi-form">
-                <div class="form-group">
-                    <label for="acreage">Acreage:</label>
-                    <input type="number" id="acreage" name="acreage" step="0.1" required>
+
+    <section id="calculator">
+        <h2>Calculate Your Recharge Basin ROI</h2>
+        <div class="calculator-container">
+            <div class="form-section">
+                <h3>Step 1: Draw Your Field on the Map</h3>
+                <div class="map-instructions">
+                    <strong>Instructions:</strong> Click on the map to draw a rectangle around your proposed recharge basin location. Click multiple points to create a polygon, then click the first point again to close the shape.
+                </div>
+                <div id="map"></div>
+                <p id="coordinates-display"></p>
+            </div>
+
+            <form id="calculator-form">
+                <div class="form-section">
+                    <h3>Step 2: Enter Project Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeline-length">Pipeline Length to Water Source (ft):</label>
+                            <input type="number" id="pipeline-length" name="pipeline-length" value="2640" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="land-cost">Land Cost per Acre ($):</label>
+                            <input type="number" id="land-cost" name="land-cost" value="6000" required>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="soil-type">Soil Type:</label>
-                    <select id="soil-type" name="soil-type" required>
-                        <option value="">Select soil type</option>
-                        <option value="clay">Clay</option>
-                        <option value="sandy">Sandy</option>
-                        <option value="loam">Loam</option>
-                        <option value="silt">Silt</option>
-                        <option value="peaty">Peaty</option>
-                    </select>
+                <div class="form-section">
+                    <h3>Step 3: Water Economics</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="water-cost">Cost of Recharge Water ($/acre-ft):</label>
+                            <input type="number" id="water-cost" name="water-cost" value="35" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="water-value">Value of Stored Water ($/acre-ft):</label>
+                            <input type="number" id="water-value" name="water-value" value="200" required>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="crop-type">Crop Type:</label>
-                    <select id="crop-type" name="crop-type" required>
-                        <option value="">Select crop type</option>
-                        <option value="corn">Corn</option>
-                        <option value="wheat">Wheat</option>
-                        <option value="soybeans">Soybeans</option>
-                        <option value="grapes">Grapes</option>
-                        <option value="vegetables">Vegetables</option>
-                    </select>
+                <div class="form-section">
+                    <h3>Step 4: Financial Parameters</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="discount-rate">Discount Rate (%):</label>
+                            <input type="number" id="discount-rate" name="discount-rate" value="5" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loan-years">Loan Term (years):</label>
+                            <input type="number" id="loan-years" name="loan-years" value="10" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wet-frequency">Wet Year Frequency (0-1):</label>
+                            <input type="number" id="wet-frequency" name="wet-frequency" value="0.3" step="0.01" min="0" max="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="wet-duration">Wet Year Duration (months):</label>
+                            <input type="number" id="wet-duration" name="wet-duration" value="4" required>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="initial-cost">Initial Investment Cost ($):</label>
-                    <input type="number" id="initial-cost" name="initial-cost" step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="annual-maintenance">Annual Maintenance Cost ($):</label>
-                    <input type="number" id="annual-maintenance" name="annual-maintenance" step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="expected-yield">Expected Yield per Acre (units):</label>
-                    <input type="number" id="expected-yield" name="expected-yield" step="0.1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="market-price">Market Price per Unit ($):</label>
-                    <input type="number" id="market-price" name="market-price" step="0.01" required>
-                </div>
-
-                <button type="submit" class="calculate-btn">Calculate ROI</button>
+                <button type="submit" class="calculate-btn" id="calc-btn" disabled>
+                    Draw area on map to enable calculation
+                </button>
             </form>
         </div>
     </section>
+
     <section id="results">
         <h2>Results</h2>
-        <p>Your calculated results will appear here after submitting the form above.</p>
+        <div id="loading" class="loading" style="display: none;">
+            <p>Analyzing soil data and calculating results...</p>
+        </div>
+        <div id="error-message" class="error" style="display: none;"></div>
         <div id="results-display" class="results-container">
-            <div class="result-item">
-                <h3>Total Revenue</h3>
-                <p class="result-value" id="total-revenue">$0.00</p>
+            <div class="result-section">
+                <h3>Soil Analysis</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3>Primary Soil Type</h3>
+                        <p class="result-value" id="soil-type">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Infiltration Rate</h3>
+                        <p class="result-value" id="infiltration-rate">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Basin Area</h3>
+                        <p class="result-value" id="basin-area">-</p>
+                    </div>
+                </div>
             </div>
-            <div class="result-item">
-                <h3>Total Costs</h3>
-                <p class="result-value" id="total-costs">$0.00</p>
+
+            <div class="result-section">
+                <h3>Water Recharge Capacity</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3>Annual Recharge</h3>
+                        <p class="result-value" id="net-recharge">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Operating Days/Year</h3>
+                        <p class="result-value" id="operating-days">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Wetted Area</h3>
+                        <p class="result-value" id="wetted-area">-</p>
+                    </div>
+                </div>
             </div>
-            <div class="result-item">
-                <h3>Net Profit</h3>
-                <p class="result-value" id="net-profit">$0.00</p>
+
+            <div class="result-section">
+                <h3>Financial Analysis</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3>Total Project Cost</h3>
+                        <p class="result-value" id="total-cost">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Annual Payment</h3>
+                        <p class="result-value" id="annual-payment">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Annual Net Benefit</h3>
+                        <p class="result-value" id="net-benefit">-</p>
+                    </div>
+                </div>
             </div>
-            <div class="result-item">
-                <h3>Return on Investment (ROI)</h3>
-                <p class="result-value" id="roi-percentage">0%</p>
+
+            <div class="result-section">
+                <h3>Return on Investment</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3>Net Present Value</h3>
+                        <p class="result-value" id="npv">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Benefit-Cost Ratio</h3>
+                        <p class="result-value" id="bc-ratio">-</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>ROI Percentage</h3>
+                        <p class="result-value" id="roi">-</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Agricultural Expense Calculator</p>
+        <p>&copy; 2025 Water Recharge Basin Calculator | California Water Institute</p>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
     <script src="script.js"></script>
 </body>
 </html>
